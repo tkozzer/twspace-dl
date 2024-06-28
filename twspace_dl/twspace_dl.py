@@ -12,7 +12,7 @@ from mutagen.mp4 import MP4, MP4Cover
 from .api import API
 from .twspace import Twspace
 
-DEFAULT_FNAME_FORMAT = "(%(creator_name)s)%(title)s-%(id)s"
+DEFAULT_FNAME_FORMAT = "%(creator_screen_name)s-'%(title)s'-%(id)s"
 MP4_COVER_FORMAT_MAP = {"jpg": MP4Cover.FORMAT_JPEG, "png": MP4Cover.FORMAT_PNG}
 
 
@@ -182,6 +182,9 @@ class TwspaceDL:
         except RuntimeError:
             logging.error(f"Cannot download user profile image from URL: {cover_url}")
             raise
+
+    def check_ended(self) -> str:
+        return self.space["state"]
 
     def cleanup(self) -> None:
         if os.path.exists(self._tempdir):

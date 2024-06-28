@@ -112,6 +112,9 @@ def space(args: argparse.Namespace) -> int:
         finally:
             if not args.keep_files:
                 twspace_dl.cleanup()
+    else:
+        if args.is_ended:
+            print(twspace_dl.check_ended())
     return EXIT_CODE_SUCCESS
 
 
@@ -216,6 +219,11 @@ def main() -> int:
         "--embed-cover",
         action="store_true",
         help="embed user avatar as cover art",
+    )
+    output_group.add_argument(
+        "-x",
+        "--is-ended",
+        action="store_true",
     )
     parser.set_defaults(func=space)
     if len(sys.argv) == 1:

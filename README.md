@@ -36,7 +36,6 @@
 
 </details>
 
-
 ## Requirements
 
 - `ffmpeg` if not using portable binaries.
@@ -151,6 +150,7 @@ output:
   --write-url URL_OUTPUT
                         write master url to file
   -e, --embed-cover     embed user avatar as cover art
+  -x, --is-ended        use this flag if the space has ended
 ```
 
 ## Format
@@ -177,7 +177,7 @@ This is an error in ffmpeg that does not affect twspace_dl at all as far as I kn
 
 ## Service
 
-To run as a systemd service please refer to https://github.com/HoloArchivists/twspace-dl/blob/main/SERVICE.md
+To run as a systemd service please refer to <https://github.com/HoloArchivists/twspace-dl/blob/main/SERVICE.md>
 
 ## Docker
 
