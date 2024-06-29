@@ -9,8 +9,8 @@
     <a href="https://pypi.org/project/twspace-dl/">
       <img src="https://img.shields.io/pypi/dm/twspace-dl?label=DOWNLOADS%20%28PYPI%29&amp;style=for-the-badge" alt="PyPI DLs">
     </a>
-    <a href="https://github.com/HoloArchivists/twspace-dl/releases">
-      <img src="https://img.shields.io/github/downloads/HoloArchivists/twspace-dl/total?label=DOWNLOADS%20%28GITHUB%29&amp;style=for-the-badge" alt="Github Releases DLs">
+    <a href="https://github.com/tkozzer/twspace-dl/releases">
+      <img src="https://img.shields.io/github/downloads/tkozzer/twspace-dl/total?label=DOWNLOADS%20%28GITHUB%29&amp;style=for-the-badge" alt="Github Releases DLs">
     </a>
   </p>
   <p>A python module to download twitter spaces.</p>
@@ -61,7 +61,7 @@ pip install git+https://github.com/HoloArchivists/twspace-dl@gooey
 
 ### From portable binaries
 
-[Windows](https://github.com/HoloArchivists/twspace-dl/releases/latest/download/twspace-dl-CLI.exe)
+[Windows](https://github.com/tkozzer/twspace-dl/releases/latest/download/twspace-dl-CLI.exe)
 
 ### From PyPI
 
@@ -72,7 +72,7 @@ pip install twspace-dl
 ### From source
 
 ```bash
-pip install git+https://github.com/HoloArchivists/twspace-dl
+pip install git+https://github.com/tkozzer/twspace-dl
 ```
 
 ## Usage
@@ -177,14 +177,14 @@ This is an error in ffmpeg that does not affect twspace_dl at all as far as I kn
 
 ## Service
 
-To run as a systemd service please refer to <https://github.com/HoloArchivists/twspace-dl/blob/main/SERVICE.md>
+To run as a systemd service please refer to <https://github.com/tkozzer/twspace-dl/blob/main/SERVICE.md>
 
 ## Docker
 
 ### Run once
 
 ```bash
-docker run --rm -v .:/output holoarchivists/twspace-dl -i space_url
+docker run --rm -v .:/output tkozzer/twspace-dl -i space_url
 ```
 
 ### Run as monitoring service
