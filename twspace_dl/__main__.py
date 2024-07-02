@@ -71,10 +71,12 @@ def space(args: argparse.Namespace) -> int:
     API.init_apis(load_cookies(args.input_cookie_file))
     if args.user_url:
         twspace = Twspace.from_user_avatar(args.user_url)
-    elif args.input_metadata:
-        twspace = Twspace.from_file(args.input_metadata)
+    elif args.input_metadata_path:
+        twspace = Twspace.from_file(args.input_metadata_path)
     elif args.input_url:
         twspace = Twspace.from_space_url(args.input_url)
+    elif args.input_metadata:
+        twspace = Twspace.from_str(args.input_metadata)
     else:
         logging.warning(
             (
@@ -178,11 +180,21 @@ def main() -> int:
     )
     input_group.add_argument(
         "-M",
-        "--input-metadata",
+        "--input-metadata-path",
         type=str,
         metavar="PATH",
         help=(
             "use a metadata json file instead of input url\n"
+            "(useful for very old ended spaces)"
+        ),
+    )
+    input_group.add_argument(
+        "-A",
+        "--input-metadata",
+        type=str,
+        metavar="METADATA",
+        help=(
+            "use a metadata json string instead of input url\n"
             "(useful for very old ended spaces)"
         ),
     )

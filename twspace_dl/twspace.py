@@ -172,3 +172,8 @@ class Twspace(dict):
         """Create a Twspace instance from a metadata file"""
         with open(path, "r", encoding="utf-8") as metadata_io:
             return cls(json.load(metadata_io))
+
+    @classmethod
+    def from_str(cls, metadata: str):
+        """Create a Twspace instance from a metadata string"""
+        return cls(json.loads(metadata))
