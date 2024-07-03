@@ -137,13 +137,17 @@ input:
                         _uJOjqC8OCo5A/non_transcode/ap-northeast-1/periscope-
                         replay-direct-prod-ap-northeast-1-public/audio-
                         space/master_playlist.m3u8
-  -M PATH, --input-metadata PATH
+  -M PATH, --input-metadata-path PATH
                         use a metadata json file instead of input url (useful
+                        for very old ended spaces)
+  -A METADATA, --input-metadata METADATA
+                        use a metadata json string instead of input url (useful
                         for very old ended spaces)
 
 output:
   -o FORMAT_STR, --output FORMAT_STR
   -m, --write-metadata  write the full metadata json to a file
+  -a, --write-metadata-str  write the full metadata json to a file as a string
   -p, --write-playlist  write the m3u8 used to download the stream(e.g. if you
                         want to use another downloader)
   -u, --url             display the master url

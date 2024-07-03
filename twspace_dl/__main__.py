@@ -96,6 +96,8 @@ def space(args: argparse.Namespace) -> int:
     if args.write_metadata:
         with open(f"{twspace_dl.filename}.json", "w", encoding="utf-8") as metadata_io:
             json.dump(twspace.source, metadata_io, indent=4)
+    if args.write_metadata_str:
+        print(twspace.source)
     if args.url:
         print(twspace_dl.master_url)
     if args.write_url:
@@ -210,6 +212,12 @@ def main() -> int:
         "--write-metadata",
         action="store_true",
         help="write the full metadata json to a file",
+    )
+    output_group.add_argument(
+        "-a",
+        "--write-metadata-str",
+        action="store_true",
+        help="write the full metadata json to stdout",
     )
     output_group.add_argument(
         "-p",
