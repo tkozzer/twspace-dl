@@ -97,7 +97,7 @@ def space(args: argparse.Namespace) -> int:
         with open(f"{twspace_dl.filename}.json", "w", encoding="utf-8") as metadata_io:
             json.dump(twspace.source, metadata_io, indent=4)
     if args.write_metadata_str:
-        print(twspace.source)
+        print(json.dumps(twspace.source))
     if args.url:
         print(twspace_dl.master_url)
     if args.write_url:
