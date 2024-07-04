@@ -34,7 +34,8 @@ class TwspaceDL:
         space_id = space["id"]
 
         def sanitize_filename(s):
-            return re.sub(r'[<>:"/\\|?*]', "_", s)
+            # Replace problematic characters with underscores and replace spaces with underscores
+            return re.sub(r'[<>:"/\\|?*\s]', "_", s)
 
         sanitized_creator = sanitize_filename(creator_screen_name)
         sanitized_title = sanitize_filename(title)

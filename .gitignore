@@ -9,3 +9,4 @@ __pycache__
 cookies.txt
 master_urls.txt
 cookie.txt
+.venv
