@@ -12,8 +12,9 @@ from mutagen.mp4 import MP4, MP4Cover
 from .api import API
 from .twspace import Twspace
 
-DEFAULT_FNAME_FORMAT = "%(creator_screen_name)s-'%(title)s'-%(id)s"
+DEFAULT_FNAME_FORMAT = "%(creator_screen_name)s-%(title)s-%(id)s"
 MP4_COVER_FORMAT_MAP = {"jpg": MP4Cover.FORMAT_JPEG, "png": MP4Cover.FORMAT_PNG}
+MAX_FILENAME_LENGTH = 255  # Adjust this value as needed
 
 
 class TwspaceDL:
@@ -27,7 +28,43 @@ class TwspaceDL:
     @cached_property
     def filename(self) -> str:
         """Returns the formatted filename"""
-        filename = self.space.format(self.format_str)
+        space = self.space
+        creator_screen_name = space["creator_screen_name"]
+        title = space["title"]
+        space_id = space["id"]
+
+        def sanitize_filename(s):
+            return re.sub(r'[<>:"/\\|?*]', "_", s)
+
+        sanitized_creator = sanitize_filename(creator_screen_name)
+        sanitized_title = sanitize_filename(title)
+        sanitized_id = sanitize_filename(space_id)
+
+        # Calculate the maximum length for the title
+        max_title_length = (
+            MAX_FILENAME_LENGTH - len(sanitized_creator) - len(sanitized_id) - 2
+        )  # 2 for the hyphens
+
+        if max_title_length < 0:
+            # If creator_screen_name and id are already too long, truncate them
+            max_creator_length = (MAX_FILENAME_LENGTH - 2) // 2  # 2 for the hyphens
+            max_id_length = MAX_FILENAME_LENGTH - max_creator_length - 2
+            sanitized_creator = sanitized_creator[:max_creator_length]
+            sanitized_id = sanitized_id[:max_id_length]
+            sanitized_title = ""
+        else:
+            # Truncate the title if necessary
+            sanitized_title = sanitized_title[:max_title_length]
+
+        filename = self.format_str % {
+            "creator_screen_name": sanitized_creator,
+            "title": sanitized_title,
+            "id": sanitized_id,
+        }
+
+        # Remove any trailing hyphens or underscores
+        filename = filename.rstrip("-_")
+
         return filename
 
     @cached_property
@@ -109,7 +146,7 @@ class TwspaceDL:
             f"episode_id={space['id']}",
         ]
 
-        filename = os.path.basename(self.filename)
+        filename = self.filename  # Use the sanitized filename
         filename_m3u8 = os.path.join(self._tempdir, filename + ".m3u8")
         filename_old = os.path.join(self._tempdir, filename + ".m4a")
         cmd_old = cmd_base.copy()
@@ -161,7 +198,7 @@ class TwspaceDL:
                 ) from err
             if os.path.dirname(self.filename):
                 os.makedirs(os.path.dirname(self.filename), exist_ok=True)
-            shutil.move(filename_old, self.filename + ".m4a")
+            shutil.move(filename_old, filename + ".m4a")
 
         logging.info("Finished downloading")
 
